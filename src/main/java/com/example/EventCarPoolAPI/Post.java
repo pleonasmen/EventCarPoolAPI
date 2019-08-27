@@ -1,6 +1,9 @@
 package com.example.EventCarPoolAPI;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -13,16 +16,19 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name = "postId")
     private Long postId;
-    private Long userId;
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name="user_Id")
+    private User poster;
     private String textField;
     private LocalDate time;
 
     public Post() {
     }
 
-    public Post(Long postId, Long userId, String textField, LocalDate time) {
+    public Post(Long postId, User user, String textField, LocalDate time) {
         this.postId = postId;
-        this.userId = userId;
+        this.poster = poster;
         this.textField = textField;
         this.time = time;
     }
@@ -35,12 +41,12 @@ public class Post {
         this.postId = postId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getPoster() {
+        return poster;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setPoster(User poster) {
+        this.poster = poster;
     }
 
     public String getTextField() {

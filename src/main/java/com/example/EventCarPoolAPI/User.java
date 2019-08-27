@@ -1,7 +1,11 @@
 package com.example.EventCarPoolAPI;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "[User]")
@@ -24,7 +28,9 @@ public class User {
     private String imageURL;
     private Long favouriteTeamId;
     private String role;
-
+    @JsonBackReference
+    @OneToMany(mappedBy = "poster")
+    private List<Post> posts;
 
     User() {}
 
@@ -132,5 +138,13 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }
