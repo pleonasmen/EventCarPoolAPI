@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Like")
+@Table(name = "[Like]")
 public class Like {
     /*
     Fungerar ej!

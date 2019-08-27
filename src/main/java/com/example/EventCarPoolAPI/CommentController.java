@@ -5,17 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 @RestController
-public class LikeController {
+public class CommentController {
 
     @Autowired
-    LikeRepository repository;
+    CommentRepository repository;
 
-  @GetMapping("/like")
-   public List<Like> getLikes() {
-      return (List<Like>) repository.findAll();
-    }
-
-
-
+    @GetMapping("/comment")
+    public List<Comment> getComments(){return (List<Comment>) repository.findAll(); }
 }
