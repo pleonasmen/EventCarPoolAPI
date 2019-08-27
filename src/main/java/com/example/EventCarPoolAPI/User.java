@@ -7,6 +7,8 @@ import java.time.LocalDate;
 @Table(name = "[User]")
 public class User {
 
+    public static final String ROLE_PREFIX = "ROLE_";
+
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     @Column (name = "user_id")
@@ -21,10 +23,12 @@ public class User {
     private String phoneNumber;
     private String imageURL;
     private Long favouriteTeamId;
+    private String role;
+
 
     User() {}
 
-    User(String firstName, String lastName, String userName, String password, String gender, String emailAddress, String phonenumber, String imageURL, Long favouriteTeamId) {
+    User(String firstName, String lastName, String userName, String password, String gender, String emailAddress, String phonenumber, String imageURL, Long favouriteTeamId, String role) {
         setFirstName(firstName);
         setLastName(lastName);
         setUserName(userName);
@@ -120,5 +124,13 @@ public class User {
 
     public void setFavouriteTeamId(Long favouriteTeamId) {
         this.favouriteTeamId = favouriteTeamId;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

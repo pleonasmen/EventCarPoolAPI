@@ -12,29 +12,28 @@ public class UserController {
     UserRepository repository;
 
     @GetMapping("/user")
-    public List<User> getMessages() {
+    public List<User> getUsers() {
         return (List<User>) repository.findAll();
     }
 
- /*   @GetMapping("/message/{id}")
-    public Message getMessages(@PathVariable Long id) {
-        return messageRepository.findById(id).get();
+    @GetMapping("/user/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return repository.findById(id).get();
     }
 
-    @PostMapping("/message")
-    public Message post(@RequestBody Message message) {
-        return messageRepository.save(message);
+    @PostMapping("/user")
+    public User createUser(@RequestBody User user) {
+        return repository.save(user);
     }
 
-    @PutMapping("/message/{id}")
-    public Message put(@PathVariable Long id, @RequestBody Message message) {
-        return messageRepository.save(message);
+    @PutMapping("/user/{id}")
+    public User editUser(@PathVariable Long id, @RequestBody User user) {
+        return repository.save(user);
     }
 
-    @DeleteMapping("/message/{id}")
-    public void delete(@PathVariable Long id) {
-        messageRepository.deleteById(id);
+    @DeleteMapping("/user/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        repository.deleteById(id);
     }
 
-    }*/
 }
