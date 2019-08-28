@@ -43,13 +43,13 @@ public class User {
     @JoinTable(name = "User_Requests_Seat_In_Journey",
             joinColumns = @JoinColumn(name = "userId"),
             inverseJoinColumns = @JoinColumn(name = "journeyId"))
-    @Where (clause = ".requestStatus = 'waiting'")
+  //  @Where (clause = "requestStatus = 'waiting'")
     private List<Journey> requestedJourneys;
 
 
     User() {}
 
-    User(String firstName, String lastName, String userName, String password, String gender, String emailAddress, String phonenumber, String imageURL, Long favouriteTeamId, String role) {
+    User(String firstName, String lastName, String userName, String password, String gender, String emailAddress, String phoneNumber, String imageURL, Long favouriteTeamId, String role) {
         setFirstName(firstName);
         setLastName(lastName);
         setUserName(userName);
