@@ -43,7 +43,7 @@ public class User {
     @JoinTable(name = "User_Requests_Seat_In_Journey",
             joinColumns = @JoinColumn(name = "userId"),
             inverseJoinColumns = @JoinColumn(name = "journeyId"))
-//    @Where (clause = "requestStatus = 'waiting'")
+ //   @Where (clause = "requestStatus = 'accepted'")
     private List<Journey> requestedJourneys;
 
 
