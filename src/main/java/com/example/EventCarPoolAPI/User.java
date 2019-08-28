@@ -44,6 +44,7 @@ public class User {
             joinColumns = @JoinColumn(name = "userId"),
             inverseJoinColumns = @JoinColumn(name = "journeyId"))
 //    @Where (clause = "requestStatus = 'waiting'")
+    @Where (clause = "requestStatus = 'waiting'")
     private List<Journey> requestedJourneys;
 
 
