@@ -40,6 +40,9 @@ public class User {
     @JsonBackReference
     @OneToMany(mappedBy = "userLiking")
     private List<Like> likes;
+    @JsonBackReference
+    @OneToMany(mappedBy = "driver")
+    private List<Journey> journeysAsDriver;
 //    @JsonBackReference
 //    @ManyToMany
 //    @JoinTable(name = "User_Requests_Seat_In_Journey",

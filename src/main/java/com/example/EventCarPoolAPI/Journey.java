@@ -17,7 +17,9 @@ public class Journey {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name = "journeyId")
     private Long journeyId;
-    private Long driverId;
+    @ManyToOne
+    @JoinColumn(name="driverId")
+    private User driver;
     private Long matchId;
     private Integer seats;
     private String fromCity;
@@ -43,9 +45,8 @@ public class Journey {
 
     public Journey() { }
 
-    public Journey(Long journeyId, Long driverId, Long matchId, Integer seats, String fromCity, String toCity, LocalDate startTime, LocalDate createdDate, Integer contributionPerHead, String tripType) {
+    public Journey(Long journeyId, Long matchId, Integer seats, String fromCity, String toCity, LocalDate startTime, LocalDate createdDate, Integer contributionPerHead, String tripType) {
         this.journeyId = journeyId;
-        this.driverId = driverId;
         this.matchId = matchId;
         this.seats = seats;
         this.fromCity = fromCity;
@@ -64,12 +65,12 @@ public class Journey {
         this.journeyId = journeyId;
     }
 
-    public Long getDriverId() {
-        return driverId;
+    public User getDriver() {
+        return driver;
     }
 
-    public void setDriverId(Long driverId) {
-        this.driverId = driverId;
+    public void setDriver(User driver) {
+        this.driver = driver;
     }
 
     public Long getMatchId() {
