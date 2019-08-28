@@ -2,6 +2,7 @@ package com.example.EventCarPoolAPI;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -29,8 +30,22 @@ public class User {
     private Long favouriteTeamId;
     private String role;
     @JsonBackReference
-    @OneToMany(mappedBy = "poster")
+    @OneToMany(mappedBy = "userPosting")
     private List<Post> posts;
+    @JsonBackReference
+    @OneToMany(mappedBy = "userCommenting")
+    private List<Comment> comments;
+    @JsonBackReference
+    @OneToMany(mappedBy = "userLiking")
+    private List<Like> likes;
+    @JsonBackReference
+    @ManyToMany
+    @JoinTable(name = "User_Requests_Seat_In_Journey",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "journeyId"))
+    @Where (clause = ".requestStatus = 'waiting'")
+    private List<Journey> requestedJourneys;
+
 
     User() {}
 
@@ -146,5 +161,29 @@ public class User {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
+    }
+
+    public List<Journey> getRequestedJourneys() {
+        return requestedJourneys;
+    }
+
+    public void setRequestedJourneys(List<Journey> requestedJourneys) {
+        this.requestedJourneys = requestedJourneys;
     }
 }

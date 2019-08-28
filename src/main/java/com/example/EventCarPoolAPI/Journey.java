@@ -1,8 +1,13 @@
 package com.example.EventCarPoolAPI;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Journey")
@@ -21,6 +26,16 @@ public class Journey {
     private LocalDate CreatedDate;
     private Integer contributionPerHead;
     private String tripType;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "journey")
+    private List<Post> posts;
+    @JsonManagedReference
+    @ManyToMany
+    @JoinTable(name = "User_Requests_Seat_In_Journey",
+            joinColumns = @JoinColumn(name = "journeyId"),
+            inverseJoinColumns = @JoinColumn(name = "userId"))
+    @Where (clause = ".requestStatus = 'waiting'")
+    private List<User> usersRequesting;
 
 
     public Journey() { }
@@ -116,5 +131,21 @@ public class Journey {
 
     public void setTripType(String tripType) {
         this.tripType = tripType;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public List<User> getUsersRequesting() {
+        return usersRequesting;
+    }
+
+    public void setUsersRequesting(List<User> usersRequesting) {
+        this.usersRequesting = usersRequesting;
     }
 }

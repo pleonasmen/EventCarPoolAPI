@@ -1,6 +1,9 @@
 package com.example.EventCarPoolAPI;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -15,18 +18,20 @@ public class Like {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name = "likeId")
     private Long likeId;
-    private Long userId;
-    private Long postId;
+    @JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name="userId")
+    private User userLiking;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name="postId")
+    private Post post;
     private LocalDate time;
-
-
 
     public Like() {}
 
-    public Like(Long likeId, Long userId, Long postId, LocalDate time) {
+    public Like(Long likeId, LocalDate time) {
         this.likeId = likeId;
-        this.userId = userId;
-        this.postId = postId;
         this.time = time;
     }
 
@@ -38,20 +43,20 @@ public class Like {
         this.likeId = likeId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUserLiking() {
+        return userLiking;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserLiking(User userLiking) {
+        this.userLiking = userLiking;
     }
 
-    public Long getPostId() {
-        return postId;
+    public Post getPost() {
+        return post;
     }
 
-    public void setPostId(Long postId) {
-        this.postId = postId;
+    public void setPost(Post post) {
+        this.post = post;
     }
 
     public LocalDate getTime() {

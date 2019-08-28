@@ -3,9 +3,11 @@ package com.example.EventCarPoolAPI;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Post")
@@ -19,16 +21,28 @@ public class Post {
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name="user_Id")
-    private User poster;
+    private User userPosting;
     private String textField;
     private LocalDate time;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "post")
+    private List<Like> likes;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name="journeyId")
+    private Journey journey;
+
+
+
 
     public Post() {
     }
 
-    public Post(Long postId, User user, String textField, LocalDate time) {
+    public Post(Long postId, String textField, LocalDate time) {
         this.postId = postId;
-        this.poster = poster;
         this.textField = textField;
         this.time = time;
     }
@@ -41,12 +55,12 @@ public class Post {
         this.postId = postId;
     }
 
-    public User getPoster() {
-        return poster;
+    public User getUserPosting() {
+        return userPosting;
     }
 
-    public void setPoster(User poster) {
-        this.poster = poster;
+    public void setUserPosting(User userPosting) {
+        this.userPosting = userPosting;
     }
 
     public String getTextField() {
@@ -63,5 +77,29 @@ public class Post {
 
     public void setTime(LocalDate time) {
         this.time = time;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public Journey getJourney() {
+        return journey;
+    }
+
+    public void setJourney(Journey journey) {
+        this.journey = journey;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
     }
 }

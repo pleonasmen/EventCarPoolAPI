@@ -1,5 +1,8 @@
 package com.example.EventCarPoolAPI;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -11,18 +14,22 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "commentId")
 	private Long commentId;
-    private Long userId;
-    private Long postId;
+	@JsonManagedReference
+	@ManyToOne
+	@JoinColumn(name="userId")
+	private User userCommenting;
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name="postId")
+    private Post post;
     private String textField;
     private LocalDate time;
 
 	public Comment() {
 	}
 
-	public Comment(Long commentId, Long userId, Long postId, String textField, LocalDate time) {
+	public Comment(Long commentId, String textField, LocalDate time) {
 		this.commentId = commentId;
-		this.userId = userId;
-		this.postId = postId;
 		this.textField = textField;
 		this.time = time;
 	}
@@ -35,20 +42,20 @@ public class Comment {
 		this.commentId = commentId;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public Post getPost() {
+		return post;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
-	public Long getPostId() {
-		return postId;
+	public User getUserCommenting() {
+		return userCommenting;
 	}
 
-	public void setPostId(Long postId) {
-		this.postId = postId;
+	public void setUserCommenting(User userCommenting) {
+		this.userCommenting = userCommenting;
 	}
 
 	public String getTextField() {
