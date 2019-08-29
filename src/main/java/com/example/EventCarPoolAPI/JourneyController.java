@@ -1,9 +1,17 @@
 package com.example.EventCarPoolAPI;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class JourneyController {
@@ -11,9 +19,17 @@ public class JourneyController {
     @Autowired
     JourneyRepository repository;
 
-    @GetMapping("/journey")
+    @Autowired
+    ParseJsonJohan parser;
+
+    @PostMapping(value="/journey", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @CrossOrigin(origins = "http://localhost:3000")
-    public List<Journey> getJourneys(){return (List<Journey>)repository.findAll();}
+    public Journey createJourney(@RequestBody String journey) {
+        Journey newJourney = parser.parseJson(journey);
+        System.out.println("tjena   " + newJourney.getFromCity());
+        return repository.save(newJourney);
+
+}
 
     @GetMapping("/journey/{id}")
     public Journey getJourneyById(@PathVariable Long id) {
