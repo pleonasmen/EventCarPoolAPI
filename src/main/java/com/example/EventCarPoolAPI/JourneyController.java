@@ -22,7 +22,11 @@ public class JourneyController {
     @Autowired
     ParseJsonJohan parser;
 
+    JourneyPreviewRepository previewRepository;
+
+
     @PostMapping(value="/journey", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping("/journey")
     @CrossOrigin(origins = "http://localhost:3000")
     public Journey createJourney(@RequestBody String journey) {
         Journey newJourney = parser.parseJson(journey);
@@ -32,6 +36,7 @@ public class JourneyController {
 }
 
     @GetMapping("/journey/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Journey getJourneyById(@PathVariable Long id) {
         return repository.findById(id).get();
     }
@@ -50,6 +55,11 @@ public class JourneyController {
     public void deleteJourney(@PathVariable Long id) {
         repository.deleteById(id);
     }
+
+    @GetMapping("/journeypreview")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public List<JourneyPreview> getPreviewJourneys(){return (List<JourneyPreview>)previewRepository.findAll();}
+
 
 }
 
