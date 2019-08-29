@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Table (name = "User_Gives_Reference_To_User")
 public class UserGivesReferenceToUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long referenceId;
     private Long giverId;
     @JsonBackReference
