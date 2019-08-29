@@ -51,7 +51,13 @@ public class Journey {
     }
 
 
+    public Long getDriverId() {
+        return driverId;
+    }
 
+    public void setDriverId(Long driverId) {
+        this.driverId = driverId;
+    }
 
     public Long getJourneyId() {
         return journeyId;

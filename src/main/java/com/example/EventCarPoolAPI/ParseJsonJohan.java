@@ -3,19 +3,13 @@ package com.example.EventCarPoolAPI;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-
-
-import java.text.ParseException;
 import java.time.LocalDate;
 
 
 @Service
 public class ParseJsonJohan {
 
-
+    @Autowired
     UserRepository repository;
 
 
