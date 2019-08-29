@@ -19,6 +19,7 @@ public class JourneyController {
     public List<Journey> getJourneys(){return (List<Journey>)repository.findAll();}
 
     @GetMapping("/journey/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public Journey getJourneyById(@PathVariable Long id) {
         return repository.findById(id).get();
     }
