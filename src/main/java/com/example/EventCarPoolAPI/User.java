@@ -64,6 +64,19 @@ public class User {
         setRegistrationDate();
     }
 
+    User(String firstName, String lastName, String userName, String gender, String email, LocalDate registrationDate, String phoneNumber, String imageURL, Long favouriteTeamId, String role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.gender = gender;
+        this.email = email;
+        this.registrationDate = registrationDate;
+        this.phoneNumber = phoneNumber;
+        this.imageURL = imageURL;
+        this.favouriteTeamId = favouriteTeamId;
+        this.role = role;
+    }
+
     public Long getId() {
         return id;
     }
