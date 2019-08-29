@@ -20,6 +20,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public User getUserById(@PathVariable Long id) {
         return repository.findById(id).get();
     }
