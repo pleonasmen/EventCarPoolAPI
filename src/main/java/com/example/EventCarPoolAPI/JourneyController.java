@@ -20,20 +20,15 @@ public class JourneyController {
     JourneyRepository repository;
 
     @Autowired
-    ParseJsonJohan parser;
-
     JourneyPreviewRepository previewRepository;
 
+    @Autowired
+    ParseJsonJohan parser;
 
-    @PostMapping(value="/journey", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @GetMapping("/journey")
     @CrossOrigin(origins = "http://localhost:3000")
-    public Journey createJourney(@RequestBody String journey) {
-        Journey newJourney = parser.parseJson(journey);
-        System.out.println("tjena   " + newJourney.getFromCity());
-        return repository.save(newJourney);
+    public List<Journey> getJourneys(){return (List<Journey>)repository.findAll();}
 
-}
 
     @GetMapping("/journey/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
@@ -59,6 +54,16 @@ public class JourneyController {
     @GetMapping("/journeypreview")
     @CrossOrigin(origins = "http://localhost:3000")
     public List<JourneyPreview> getPreviewJourneys(){return (List<JourneyPreview>)previewRepository.findAll();}
+
+    @PostMapping(value="/journey", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @CrossOrigin(origins = "http://localhost:3000")
+    public Journey createJourney(@RequestBody String journey) {
+        Journey newJourney = parser.parseJson(journey);
+        System.out.println("tjena   " + newJourney.getFromCity());
+        return repository.save(newJourney);
+
+    }
+
 
 
 }
