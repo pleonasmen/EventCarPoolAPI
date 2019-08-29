@@ -34,14 +34,6 @@ public class Journey {
     @JsonManagedReference
     @OneToMany(mappedBy = "journey")
     private List<UserJourneyRequest> requests;
-//    @JsonManagedReference
-//    @ManyToMany
-//    @JoinTable(name = "User_Requests_Seat_In_Journey",
-//            joinColumns = @JoinColumn(name = "journeyId"),
-//            inverseJoinColumns = @JoinColumn(name = "userId"))
-//    @Where (clause = "requestStatus = 'accepted'")
-//    private List<User> usersRequesting;
-
 
     public Journey() { }
 

@@ -1,9 +1,11 @@
 package com.example.EventCarPoolAPI;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -12,6 +14,7 @@ public class UserController {
     UserRepository repository;
 
     @GetMapping("/user")
+    @CrossOrigin(origins = "http://localhost:3000")
     public List<User> getUsers() {
         return (List<User>) repository.findAll();
     }
@@ -22,11 +25,15 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public User createUser(@RequestBody User user) {
-        return repository.save(user);
+    @CrossOrigin(origins = "http://localhost:3000")
+    public User createUser(@RequestBody String user, @RequestHeader Map<String, String> headers) {
+
+        return new User();
     }
 
+
     @PutMapping("/user/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public User editUser(@PathVariable Long id, @RequestBody User user) {
         return repository.save(user);
     }
@@ -37,3 +44,5 @@ public class UserController {
     }
 
 }
+
+
