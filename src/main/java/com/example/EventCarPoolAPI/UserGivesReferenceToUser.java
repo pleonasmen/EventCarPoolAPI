@@ -1,17 +1,23 @@
 package com.example.EventCarPoolAPI;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-
+@Table (name = "User_Gives_Reference_To_User")
 public class UserGivesReferenceToUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "giverId")
+    private Long referenceId;
     private Long giverId;
-    private Long receiverId;
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name="receiverId")
+    private User userReceiving;
     private String referenceType;
     private LocalDate time;
     private String giverRole;
@@ -22,14 +28,21 @@ public class UserGivesReferenceToUser {
     public UserGivesReferenceToUser() {
     }
 
-    public UserGivesReferenceToUser(Long giverId, Long receiverId, String referenceType, LocalDate time, String giverRole, String receiverRole, String textField) {
+    public UserGivesReferenceToUser(Long giverId, String referenceType, LocalDate time, String giverRole, String receiverRole, String textField) {
         this.giverId = giverId;
-        this.receiverId = receiverId;
         this.referenceType = referenceType;
         this.time = time;
         this.giverRole = giverRole;
         this.receiverRole = receiverRole;
         this.textField = textField;
+    }
+
+    public Long getReferenceId() {
+        return referenceId;
+    }
+
+    public void setReferenceId(Long referenceId) {
+        this.referenceId = referenceId;
     }
 
     public Long getGiverId() {
@@ -40,12 +53,12 @@ public class UserGivesReferenceToUser {
         this.giverId = giverId;
     }
 
-    public Long getReceiverId() {
-        return receiverId;
+    public User getUserReceiving() {
+        return userReceiving;
     }
 
-    public void setReceiverId(Long receiverId) {
-        this.receiverId = receiverId;
+    public void setUserReceiving(User userReceiving) {
+        this.userReceiving = userReceiving;
     }
 
     public String getReferenceType() {

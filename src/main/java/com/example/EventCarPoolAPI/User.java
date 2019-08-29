@@ -43,6 +43,9 @@ public class User {
     @JsonBackReference
     @OneToMany(mappedBy = "driver")
     private List<Journey> journeysAsDriver;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "userReceiving")
+    private List<UserGivesReferenceToUser> references;
 //    @JsonBackReference
 //    @ManyToMany
 //    @JoinTable(name = "User_Requests_Seat_In_Journey",
