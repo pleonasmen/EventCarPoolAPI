@@ -55,9 +55,8 @@ public class JourneyController {
     @PostMapping(value="/journey", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @CrossOrigin(origins = "http://localhost:3000")
     public Journey createJourney(@RequestBody String journey) {
-        Journey newJourney = parser.parseJson(journey);
-        System.out.println("tjena   " + newJourney.getFromCity());
-        return repository.save(newJourney);
+
+        return parser.parseJson(journey);
 
     }
 
