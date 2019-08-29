@@ -11,6 +11,9 @@ public class JourneyController {
     @Autowired
     JourneyRepository repository;
 
+    @Autowired
+    JourneyPreviewRepository previewRepository;
+
     @GetMapping("/journey")
     @CrossOrigin(origins = "http://localhost:3000")
     public List<Journey> getJourneys(){return (List<Journey>)repository.findAll();}
@@ -34,6 +37,11 @@ public class JourneyController {
     public void deleteJourney(@PathVariable Long id) {
         repository.deleteById(id);
     }
+
+    @GetMapping("/journeypreview")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public List<JourneyPreview> getPreviewJourneys(){return (List<JourneyPreview>)previewRepository.findAll();}
+
 
 }
 
