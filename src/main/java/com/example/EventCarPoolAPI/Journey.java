@@ -140,9 +140,6 @@ public class Journey {
         this.posts = posts;
     }
 
-
-
-
     public List<UserJourneyRequest> getRequests() {
         return requests;
     }
