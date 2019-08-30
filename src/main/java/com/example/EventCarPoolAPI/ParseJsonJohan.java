@@ -13,6 +13,10 @@ public class ParseJsonJohan {
     UserRepository userRepository;
     @Autowired
     JourneyRepository journeyRepository;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    JourneyRepository journeyRepository;
     public Journey parseJson(String journey)throws JSONException {
         ArrayList<String> elementValues = parseAllElements(journey);
         // assigning values
@@ -50,6 +54,21 @@ public class ParseJsonJohan {
         Long journeyId = Long.valueOf(elementValues.get(2));
         User user = userRepository.findById(userId).get();
         Journey journey = journeyRepository.findById(journeyId).get();
+
+    public Post parseJsonPost(String post)throws JSONException {
+
+        ArrayList<String> elementValues = parseAllElements(post);
+        System.out.println(elementValues);
+
+        // assigning values
+
+        Long userId = Long.valueOf(elementValues.get(0));
+        String textField = elementValues.get(1);
+        Long journeyId = Long.valueOf(elementValues.get(2));
+
+        User user = userRepository.findById(userId).get();
+        Journey journey = journeyRepository.findById(journeyId).get();
+
 //        String firstName = elementValues.get(0);
 //        String lastName = elementValues.get(1);
 //        String username = elementValues.get(2);
@@ -61,6 +80,10 @@ public class ParseJsonJohan {
 //        String role = "USER";
         return new Post(textField, user, journey);
     }
+
+        return new Post(textField, user, journey);
+    }
+
     public UserGivesReferenceToUser parseRefJson(String reference)throws JSONException {
         ArrayList<String> elementValues = parseAllElements(reference);
         for (String s:elementValues

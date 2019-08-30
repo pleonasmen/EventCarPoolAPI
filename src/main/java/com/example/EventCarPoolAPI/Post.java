@@ -1,10 +1,7 @@
 package com.example.EventCarPoolAPI;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -15,7 +12,7 @@ public class Post {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "postId")
     private Long postId;
     @JsonManagedReference
@@ -41,10 +38,11 @@ public class Post {
     public Post() {
     }
 
-    public Post(Long postId, String textField, LocalDate time) {
-        this.postId = postId;
+    public Post(String textField, User userPosting, Journey journey) {
         this.textField = textField;
-        this.time = time;
+        this.userPosting = userPosting;
+        this.journey = journey;
+        setTime();
     }
 
     public Long getPostId() {
@@ -75,8 +73,8 @@ public class Post {
         return time;
     }
 
-    public void setTime(LocalDate time) {
-        this.time = time;
+    public void setTime() {
+        this.time = LocalDate.now();
     }
 
     public List<Comment> getComments() {
