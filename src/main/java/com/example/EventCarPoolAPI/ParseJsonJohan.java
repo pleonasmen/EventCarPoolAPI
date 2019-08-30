@@ -1,12 +1,10 @@
 package com.example.EventCarPoolAPI;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -15,6 +13,13 @@ public class ParseJsonJohan {
 
     @Autowired
     PasswordEncoder encoder;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    JourneyRepository journeyRepository;
+
 
     public Journey parseJson(String journey)throws JSONException {
         ArrayList<String> elementValues = parseAllElements(journey);
@@ -51,8 +56,32 @@ public class ParseJsonJohan {
         return new User(firstName, lastName, username, password, gender, email, phoneNumber, favouriteTeamId, role);
     }
 
+    public Post parseJsonPost(String post)throws JSONException {
 
+        ArrayList<String> elementValues = parseAllElements(post);
+        System.out.println(elementValues);
 
+        // assigning values
+
+        Long userId = Long.valueOf(elementValues.get(0));
+        String textField = elementValues.get(1);
+        Long journeyId = Long.valueOf(elementValues.get(2));
+
+        User user = userRepository.findById(userId).get();
+        Journey journey = journeyRepository.findById(journeyId).get();
+
+//        String firstName = elementValues.get(0);
+//        String lastName = elementValues.get(1);
+//        String username = elementValues.get(2);
+//        String password = encoder.encode(elementValues.get(3));
+//        String gender = elementValues.get(4);
+//        String email = elementValues.get(5);
+//        String phoneNumber =  elementValues.get(6);
+//        Long favouriteTeamId = Long.valueOf(elementValues.get(7));
+//        String role = "USER";
+
+        return new Post(textField, user, journey);
+    }
 
     public ArrayList<String> parseAllElements(String stringToParse)throws JSONException {
 
