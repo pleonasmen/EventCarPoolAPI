@@ -23,8 +23,7 @@ public class UserGivesReferenceToUser {
     private String giverRole;
     private String receiverRole;
     private String textField;
-
-
+    
     public UserGivesReferenceToUser() {
     }
 
