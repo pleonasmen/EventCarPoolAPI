@@ -1,10 +1,6 @@
 package com.example.EventCarPoolAPI;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
