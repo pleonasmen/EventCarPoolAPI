@@ -23,7 +23,7 @@ public class Journey {
     private String fromCity;
     private String toCity;
     private LocalDate startTime;
-    private LocalDate CreatedDate;
+    private LocalDate createdDate;
     private Integer contributionPerHead;
     private String tripType;
     @JsonManagedReference
@@ -37,15 +37,14 @@ public class Journey {
 
     public Journey() { }
 
-    public Journey(Long journeyId, Long driverId, Long matchId, Integer seats, String fromCity, String toCity, LocalDate startTime, LocalDate createdDate, Integer contributionPerHead, String tripType) {
-        this.journeyId = journeyId;
+    public Journey(Long driverId, Long matchId, Integer seats, String fromCity, String toCity, LocalDate startTime, LocalDate createdDate, Integer contributionPerHead, String tripType) {
         this.matchId = matchId;
         this.driverId = driverId;
         this.seats = seats;
         this.fromCity = fromCity;
         this.toCity = toCity;
         this.startTime = startTime;
-        CreatedDate = createdDate;
+        this.createdDate = createdDate;
         this.contributionPerHead = contributionPerHead;
         this.tripType = tripType;
     }
@@ -109,11 +108,11 @@ public class Journey {
     }
 
     public LocalDate getCreatedDate() {
-        return CreatedDate;
+        return createdDate;
     }
 
     public void setCreatedDate(LocalDate createdDate) {
-        CreatedDate = createdDate;
+        this.createdDate = createdDate;
     }
 
     public Integer getContributionPerHead() {
