@@ -14,18 +14,16 @@ import java.util.List;
 public class Journey {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "journeyId")
     private Long journeyId;
-    @ManyToOne
-    @JoinColumn(name="driverId")
-    private User driver;
+    private Long driverId;
     private Long matchId;
     private Integer seats;
     private String fromCity;
     private String toCity;
     private LocalDate startTime;
-    private LocalDate CreatedDate;
+    private LocalDate createdDate;
     private Integer contributionPerHead;
     private String tripType;
     @JsonManagedReference
@@ -34,27 +32,30 @@ public class Journey {
     @JsonManagedReference
     @OneToMany(mappedBy = "journey")
     private List<UserJourneyRequest> requests;
-//    @JsonManagedReference
-//    @ManyToMany
-//    @JoinTable(name = "User_Requests_Seat_In_Journey",
-//            joinColumns = @JoinColumn(name = "journeyId"),
-//            inverseJoinColumns = @JoinColumn(name = "userId"))
-//    @Where (clause = "requestStatus = 'accepted'")
-//    private List<User> usersRequesting;
+
 
 
     public Journey() { }
 
-    public Journey(Long journeyId, Long matchId, Integer seats, String fromCity, String toCity, LocalDate startTime, LocalDate createdDate, Integer contributionPerHead, String tripType) {
-        this.journeyId = journeyId;
+    public Journey(Long driverId, Long matchId, Integer seats, String fromCity, String toCity, LocalDate startTime, LocalDate createdDate, Integer contributionPerHead, String tripType) {
         this.matchId = matchId;
+        this.driverId = driverId;
         this.seats = seats;
         this.fromCity = fromCity;
         this.toCity = toCity;
         this.startTime = startTime;
-        CreatedDate = createdDate;
+        this.createdDate = createdDate;
         this.contributionPerHead = contributionPerHead;
         this.tripType = tripType;
+    }
+
+
+    public Long getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(Long driverId) {
+        this.driverId = driverId;
     }
 
     public Long getJourneyId() {
@@ -65,13 +66,6 @@ public class Journey {
         this.journeyId = journeyId;
     }
 
-    public User getDriver() {
-        return driver;
-    }
-
-    public void setDriver(User driver) {
-        this.driver = driver;
-    }
 
     public Long getMatchId() {
         return matchId;
@@ -114,11 +108,11 @@ public class Journey {
     }
 
     public LocalDate getCreatedDate() {
-        return CreatedDate;
+        return createdDate;
     }
 
     public void setCreatedDate(LocalDate createdDate) {
-        CreatedDate = createdDate;
+        this.createdDate = createdDate;
     }
 
     public Integer getContributionPerHead() {
@@ -145,4 +139,14 @@ public class Journey {
         this.posts = posts;
     }
 
+
+
+
+    public List<UserJourneyRequest> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<UserJourneyRequest> requests) {
+        this.requests = requests;
+    }
 }
