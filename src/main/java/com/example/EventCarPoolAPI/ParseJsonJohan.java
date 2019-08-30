@@ -83,6 +83,24 @@ public class ParseJsonJohan {
         return new Post(textField, user, journey);
     }
 
+    public UserGivesReferenceToUser parseRefJson(String reference)throws JSONException {
+        ArrayList<String> elementValues = parseAllElements(reference);
+        for (String s:elementValues
+        ) {
+            System.out.println(s);
+        }
+        String referenceType = elementValues.get(2);
+        Long giverId = Long.valueOf(elementValues.get(0));
+        Long receiverId = Long.parseLong((elementValues.get(1)));
+        User user = userRepository.findById(receiverId).get();
+        String textField = (elementValues.get(6));
+        LocalDate time = LocalDate.now();
+        String giverRole = elementValues.get(4);
+        String receiverRole = elementValues.get(5);
+        return new UserGivesReferenceToUser(giverId,referenceType, time, giverRole, receiverRole, textField, user);
+    }
+
+
     public ArrayList<String> parseAllElements(String stringToParse)throws JSONException {
 
         ArrayList<String> elementValues = new ArrayList<>();
