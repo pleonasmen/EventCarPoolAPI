@@ -13,6 +13,9 @@ public class UserController {
     @Autowired
     UserRepository repository;
 
+    @Autowired
+    ParseJsonJohan parser;
+
     @GetMapping("/user")
     @CrossOrigin(origins = "http://localhost:3000")
     public List<User> getUsers() {
@@ -25,13 +28,14 @@ public class UserController {
         return repository.findById(id).get();
     }
 
-    @PostMapping("/user")
+    @PostMapping(value="/user", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @CrossOrigin(origins = "http://localhost:3000")
-    public User createUser(@RequestBody String user, @RequestHeader Map<String, String> headers) {
+    public User createUser(@RequestBody String user) {
 
-        return new User();
+        User user2 = parser.parseJsonUser(user);
+        System.out.println("hej");
+        return repository.save(user2);
     }
-
 
     @PutMapping("/user/{id}")
     @CrossOrigin(origins = "http://localhost:3000")

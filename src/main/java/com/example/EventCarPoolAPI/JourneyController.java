@@ -33,10 +33,6 @@ public class JourneyController {
         return repository.findById(id).get();
     }
 
-    @PostMapping("/journey")
-    public Journey createUser(@RequestBody Journey journey) {
-        return repository.save(journey);
-    }
 
     @PutMapping("/journey/{id}")
     public Journey editJourney(@PathVariable Long id, @RequestBody Journey journey) {
@@ -55,8 +51,7 @@ public class JourneyController {
     @PostMapping(value="/journey", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @CrossOrigin(origins = "http://localhost:3000")
     public Journey createJourney(@RequestBody String journey) {
-
-        return parser.parseJson(journey);
+        return repository.save(parser.parseJson(journey));
 
     }
 

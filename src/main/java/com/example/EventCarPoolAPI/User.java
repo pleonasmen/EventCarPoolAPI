@@ -54,14 +54,19 @@ public class User {
 
     User() {}
 
-    User(String firstName, String lastName, String userName, String password, String gender, String emailAddress, String phoneNumber, String imageURL, Long favouriteTeamId, String role) {
+
+
+    User(String firstName, String lastName, String userName, String password, String gender, String emailAddress, String phoneNumber, Long favouriteTeamId, String role) {
         setFirstName(firstName);
         setLastName(lastName);
         setUserName(userName);
         setPassword(password);
         setGender(gender);
         setEmail(emailAddress);
+        setPassword(phoneNumber);
         setRegistrationDate();
+        setFavouriteTeamId(favouriteTeamId);
+        setRole(role);
     }
 
     User(String firstName, String lastName, String userName, String gender, String email, LocalDate registrationDate, String phoneNumber, String imageURL, Long favouriteTeamId, String role) {
@@ -76,6 +81,8 @@ public class User {
         this.favouriteTeamId = favouriteTeamId;
         this.role = role;
     }
+
+
 
     public Long getId() {
         return id;
