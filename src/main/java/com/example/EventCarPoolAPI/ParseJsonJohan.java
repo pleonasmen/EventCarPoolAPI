@@ -13,10 +13,8 @@ public class ParseJsonJohan {
     UserRepository userRepository;
     @Autowired
     JourneyRepository journeyRepository;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    JourneyRepository journeyRepository;
+
+
     public Journey parseJson(String journey)throws JSONException {
         ArrayList<String> elementValues = parseAllElements(journey);
         // assigning values
@@ -45,6 +43,7 @@ public class ParseJsonJohan {
         String role = "USER";
         return new User(firstName, lastName, username, password, gender, email, phoneNumber, favouriteTeamId, role);
     }
+    
     public Post parseJsonPost(String post)throws JSONException {
         ArrayList<String> elementValues = parseAllElements(post);
         System.out.println(elementValues);
@@ -54,35 +53,9 @@ public class ParseJsonJohan {
         Long journeyId = Long.valueOf(elementValues.get(2));
         User user = userRepository.findById(userId).get();
         Journey journey = journeyRepository.findById(journeyId).get();
-
-    public Post parseJsonPost(String post)throws JSONException {
-
-        ArrayList<String> elementValues = parseAllElements(post);
-        System.out.println(elementValues);
-
-        // assigning values
-
-        Long userId = Long.valueOf(elementValues.get(0));
-        String textField = elementValues.get(1);
-        Long journeyId = Long.valueOf(elementValues.get(2));
-
-        User user = userRepository.findById(userId).get();
-        Journey journey = journeyRepository.findById(journeyId).get();
-
-//        String firstName = elementValues.get(0);
-//        String lastName = elementValues.get(1);
-//        String username = elementValues.get(2);
-//        String password = encoder.encode(elementValues.get(3));
-//        String gender = elementValues.get(4);
-//        String email = elementValues.get(5);
-//        String phoneNumber =  elementValues.get(6);
-//        Long favouriteTeamId = Long.valueOf(elementValues.get(7));
-//        String role = "USER";
         return new Post(textField, user, journey);
     }
 
-        return new Post(textField, user, journey);
-    }
 
     public UserGivesReferenceToUser parseRefJson(String reference)throws JSONException {
         ArrayList<String> elementValues = parseAllElements(reference);
