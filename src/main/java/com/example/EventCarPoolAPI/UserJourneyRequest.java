@@ -26,6 +26,13 @@ public class UserJourneyRequest {
 
     UserJourneyRequest() {}
 
+    UserJourneyRequest(User user, Journey journey) {
+        this.user = user;
+        this.journey = journey;
+    }
+
+
+
 //    public Long getUserId() {
 //        return userId;
 //    }

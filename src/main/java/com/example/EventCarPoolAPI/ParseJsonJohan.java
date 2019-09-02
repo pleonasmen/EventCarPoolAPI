@@ -114,6 +114,25 @@ public class ParseJsonJohan {
         return new User();
     }
 
+    public UserJourneyRequest parseJsonRequest(String request)throws JSONException {
+        ArrayList<String> elementValues = parseAllElements(request);
+
+
+//        String referenceType = elementValues.get(2);
+//        Long giverId = Long.valueOf(elementValues.get(0));
+//        Long receiverId = Long.parseLong((elementValues.get(1)));
+//        User user = userRepository.findById(receiverId).get();
+//        String textField = (elementValues.get(6));
+//        LocalDate time = LocalDate.now();
+//        String giverRole = elementValues.get(4);
+//        String receiverRole = elementValues.get(5);
+//        return new UserGivesReferenceToUser(giverId,referenceType, time, giverRole, receiverRole, textField, user);
+
+        Long userId = Long.valueOf(elementValues.get(0));
+        Long journeyId = Long.valueOf(elementValues.get(2));
+        return new UserJourneyRequest(userRepository.findById(userId).get(), journeyRepository.findById(journeyId).get());
+    }
+
     public ArrayList<String> parseAllElements(String stringToParse)throws JSONException {
         ArrayList<String> elementValues = new ArrayList<>();
         stringToParse = stringToParse.replace("\"", "");
