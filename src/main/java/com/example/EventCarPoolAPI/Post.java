@@ -33,8 +33,6 @@ public class Post {
     private Journey journey;
 
 
-
-
     public Post() {
     }
 

@@ -41,15 +41,6 @@ public class User {
     @JsonManagedReference
     @OneToMany(mappedBy = "userReceiving")
     private List<UserGivesReferenceToUser> references;
-    @JsonManagedReference
-    @OneToMany(mappedBy = "friend1")
-    private List<UserHasFriends> userFriendList1;
-    @JsonManagedReference
-    @OneToMany(mappedBy = "friend2")
-    private List<UserHasFriends> userFriendList2;
-    @JsonBackReference
-    @OneToMany(mappedBy = "actionUserId")
-    private List<UserHasFriends> friendshipActionTaker;
 
 //    @JsonBackReference
 //    @ManyToMany
@@ -207,21 +198,6 @@ public class User {
         this.likes = likes;
     }
 
-    public List<UserHasFriends> getUserFriendList1() {
-        return userFriendList1;
-    }
-
-    public void setUserFriendList1(List<UserHasFriends> userFriendList1) {
-        this.userFriendList1 = userFriendList1;
-    }
-
-    public List<UserHasFriends> getUserFriendList2() {
-        return userFriendList2;
-    }
-
-    public void setUserFriendList2(List<UserHasFriends> userFriendList2) {
-        this.userFriendList2 = userFriendList2;
-    }
 
     //    public List<Journey> getRequestedJourneys() {
 //        return requestedJourneys;

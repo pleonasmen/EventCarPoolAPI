@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "commentId")
 	private Long commentId;
 	@JsonManagedReference
@@ -25,13 +25,15 @@ public class Comment {
     private String textField;
     private LocalDate time;
 
+
 	public Comment() {
 	}
 
-	public Comment(Long commentId, String textField, LocalDate time) {
-		this.commentId = commentId;
+	public Comment(String textField, User userCommenting, Post post) {
 		this.textField = textField;
-		this.time = time;
+		this.userCommenting = userCommenting;
+		this.post = post;
+		setTime();
 	}
 
 	public Long getCommentId() {
@@ -70,7 +72,7 @@ public class Comment {
 		return time;
 	}
 
-	public void setTime(LocalDate time) {
-		this.time = time;
+	public void setTime() {
+		this.time = LocalDate.now();
 	}
 }

@@ -13,6 +13,10 @@ public class ParseJsonJohan {
     UserRepository userRepository;
     @Autowired
     JourneyRepository journeyRepository;
+    @Autowired
+    PostRepository postRepository;
+    @Autowired
+    LikeRepository likeRepository;
 
 
     public Journey parseJson(String journey)throws JSONException {
@@ -72,6 +76,24 @@ public class ParseJsonJohan {
         String giverRole = elementValues.get(4);
         String receiverRole = elementValues.get(5);
         return new UserGivesReferenceToUser(giverId,referenceType, time, giverRole, receiverRole, textField, user);
+    }
+
+
+    public Comment parseJsonComment(String comment)throws JSONException {
+        ArrayList<String> elementValues = parseAllElements(comment);
+
+        String textField = elementValues.get(0);
+        Long userCommentingId = Long.valueOf(elementValues.get(1));
+        Long postId = Long.valueOf(elementValues.get(2));
+        return new Comment(textField, userRepository.findById(userCommentingId).get(),postRepository.findById(postId).get());
+    }
+
+    public Like parseJsonLike(String like)throws JSONException {
+        ArrayList<String> elementValues = parseAllElements(like);
+
+        Long userCommentingId = Long.valueOf(elementValues.get(0));
+        Long postId = Long.valueOf(elementValues.get(1));
+        return new Like(userRepository.findById(userCommentingId).get(),postRepository.findById(postId).get());
     }
 
     public User parseJsonFriendInfo(String friendInfo)throws JSONException {

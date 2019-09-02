@@ -17,7 +17,15 @@ public class PostController {
     ParseJsonJohan parser;
 
     @GetMapping("/post")
+    @CrossOrigin(origins = "http://localhost:3000")
     public List<Post> getPost(){return (List<Post>)repository.findAll();}
+
+    @GetMapping("/post/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public Post getPostById(@PathVariable Long id) {
+        return repository.findById(id).get();
+    }
+
 
     @PostMapping(value="/post", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @CrossOrigin(origins = "http://localhost:3000")

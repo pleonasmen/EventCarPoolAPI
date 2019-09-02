@@ -16,21 +16,12 @@ public class UserHasFriends {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "relationship_id")
     private Long relationshipId;
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name="user1_id")
-    private User friend1;
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name="user2_id")
-    private User friend2;
+    @Column (name = "user1_id")
+    private Long user1Id;
+    @Column (name = "user2_id")
+    private Long user2Id;
     private String status;
-
-    @JsonManagedReference
-    @ManyToOne
-    @JoinColumn(name="action_user_id")
-    @JsonIgnore
-    private User actionUserId;
+    private Long action_user_id;
 
     UserHasFriends() {}
 
@@ -42,20 +33,28 @@ public class UserHasFriends {
         this.relationshipId = relationshipId;
     }
 
-    public User getFriend1() {
-        return friend1;
+    public Long getUser1Id() {
+        return user1Id;
     }
 
-    public void setFriend1(User friend1) {
-        this.friend1 = friend1;
+    public void setUser1Id(Long user1Id) {
+        this.user1Id = user1Id;
     }
 
-    public User getFriend2() {
-        return friend2;
+    public Long getUser2Id() {
+        return user2Id;
     }
 
-    public void setFriend2(User friend2) {
-        this.friend2 = friend2;
+    public void setUser2Id(Long user2Id) {
+        this.user2Id = user2Id;
+    }
+
+    public Long getAction_user_id() {
+        return action_user_id;
+    }
+
+    public void setAction_user_id(Long action_user_id) {
+        this.action_user_id = action_user_id;
     }
 
     public String getStatus() {
@@ -68,7 +67,4 @@ public class UserHasFriends {
 
 
 
-    public void setActionUserId(User actionUserId) {
-        this.actionUserId = actionUserId;
-    }
 }

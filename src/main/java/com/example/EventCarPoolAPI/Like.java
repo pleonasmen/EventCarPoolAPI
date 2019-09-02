@@ -15,7 +15,7 @@ public class Like {
     PGA one-to-many mappning som ej inställt.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "likeId")
     private Long likeId;
     @JsonManagedReference
@@ -30,9 +30,10 @@ public class Like {
 
     public Like() {}
 
-    public Like(Long likeId, LocalDate time) {
-        this.likeId = likeId;
-        this.time = time;
+    public Like(User userLiking, Post post) {
+        this.userLiking = userLiking;
+        this.post = post;
+        setTime();
     }
 
     public Long getLikeId() {
@@ -63,7 +64,7 @@ public class Like {
         return time;
     }
 
-    public void setTime(LocalDate time) {
-        this.time = time;
+    public void setTime() {
+        this.time = LocalDate.now();
     }
 }
