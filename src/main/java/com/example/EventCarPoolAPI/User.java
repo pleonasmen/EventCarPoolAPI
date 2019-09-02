@@ -41,6 +41,29 @@ public class User {
     @JsonManagedReference
     @OneToMany(mappedBy = "userReceiving")
     private List<UserGivesReferenceToUser> references;
+    @JsonIgnore
+    @JsonManagedReference
+    @OneToMany(mappedBy = "journeyId")
+    private List<Journey> journeys;
+
+
+
+
+
+    public void setRegistrationDate(LocalDate registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public List<UserGivesReferenceToUser> getReferences() {
+        return references;
+    }
+
+    public void setReferences(List<UserGivesReferenceToUser> references) {
+        this.references = references;
+    }
+
+
+
 
 //    @JsonBackReference
 //    @ManyToMany

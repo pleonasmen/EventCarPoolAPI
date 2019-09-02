@@ -13,6 +13,7 @@ public class Journey {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "journeyId")
     private Long journeyId;
+
     private Long driverId;
     private Long matchId;
     private Integer seats;
