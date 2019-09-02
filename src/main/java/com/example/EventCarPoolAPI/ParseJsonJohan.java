@@ -129,8 +129,8 @@ public class ParseJsonJohan {
 //        return new UserGivesReferenceToUser(giverId,referenceType, time, giverRole, receiverRole, textField, user);
 
         Long userId = Long.valueOf(elementValues.get(0));
-        Long journeyId = Long.valueOf(elementValues.get(2));
-        return new UserJourneyRequest(userRepository.findById(userId).get(), journeyRepository.findById(journeyId).get());
+        Long journeyId = Long.valueOf(elementValues.get(1));
+        return new UserJourneyRequest(userRepository.findById(userId).get(), journeyRepository.findById(journeyId).get(), "waiting");
     }
 
     public ArrayList<String> parseAllElements(String stringToParse)throws JSONException {
