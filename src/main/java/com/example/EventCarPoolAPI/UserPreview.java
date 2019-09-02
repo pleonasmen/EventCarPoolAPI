@@ -1,17 +1,18 @@
 package com.example.EventCarPoolAPI;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
+
+        import com.fasterxml.jackson.annotation.JsonBackReference;
+        import com.fasterxml.jackson.annotation.JsonIgnore;
+        import com.fasterxml.jackson.annotation.JsonManagedReference;
+        import com.fasterxml.jackson.annotation.JsonSetter;
+
+        import javax.persistence.*;
+        import java.time.LocalDate;
+        import java.util.List;
 
 @Entity
 @Table(name = "[User]")
-public class User {
-
-    public static final String ROLE_PREFIX = "ROLE_";
+public class UserPreview {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -22,12 +23,19 @@ public class User {
     private String userName;
     @JsonIgnore
     private String password;
+    @JsonIgnore
     private String gender;
+    @JsonIgnore
     private String email;
+    @JsonIgnore
     private LocalDate registrationDate;
+    @JsonIgnore
     private String phoneNumber;
+    @JsonIgnore
     private String imageURL;
+    @JsonIgnore
     private Long favouriteTeamId;
+    @JsonIgnore
     private String role;
     @JsonBackReference
     @OneToMany(mappedBy = "userPosting")
@@ -59,9 +67,9 @@ public class User {
 //    @Where (clause = "requestStatus = 'waiting'")
 //    private List<Journey> requestedJourneys;
 
-    User() {}
+    UserPreview() {}
 
-    User(String firstName, String lastName, String userName, String password, String gender, String emailAddress, String phoneNumber, Long favouriteTeamId, String role) {
+    UserPreview(String firstName, String lastName, String userName, String password, String gender, String emailAddress, String phoneNumber, Long favouriteTeamId, String role) {
         setFirstName(firstName);
         setLastName(lastName);
         setUserName(userName);
@@ -74,7 +82,7 @@ public class User {
         setRole(role);
     }
 
-    User(String firstName, String lastName, String userName, String gender, String email, LocalDate registrationDate, String phoneNumber, String imageURL, Long favouriteTeamId, String role) {
+    UserPreview(String firstName, String lastName, String userName, String gender, String email, LocalDate registrationDate, String phoneNumber, String imageURL, Long favouriteTeamId, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;

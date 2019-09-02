@@ -48,6 +48,14 @@ public class UserController {
         repository.deleteById(id);
     }
 
+    @PostMapping(value="/addfriend", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @CrossOrigin(origins = "http://localhost:3000")
+    public User addFriend(@RequestBody String friendInfo) {
+
+        User user2 = parser.parseJsonUser(friendInfo);
+        return repository.save(user2);
+    }
+
 }
 
 
