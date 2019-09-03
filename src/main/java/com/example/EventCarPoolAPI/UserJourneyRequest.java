@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class UserJourneyRequest {
 
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long requestId;
     @ManyToOne
     @JoinColumn(name="userId")
@@ -26,9 +27,10 @@ public class UserJourneyRequest {
 
     UserJourneyRequest() {}
 
-    UserJourneyRequest(User user, Journey journey) {
+    UserJourneyRequest(User user, Journey journey, String requestStatus) {
         this.user = user;
         this.journey = journey;
+        this.requestStatus = requestStatus;
     }
 
 
