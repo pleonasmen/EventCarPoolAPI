@@ -1,6 +1,7 @@
 package com.example.EventCarPoolAPI;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -13,8 +14,6 @@ public class UserJourneyRequest {
 
     @Id
     private Long requestId;
-//    @Id
-//    private Long journeyId;
     @ManyToOne
     @JoinColumn(name="userId")
     private User user;
@@ -23,6 +22,7 @@ public class UserJourneyRequest {
     @JoinColumn(name="journeyId")
     private Journey journey;
     private String requestStatus;
+
 
     UserJourneyRequest() {}
 
@@ -33,17 +33,6 @@ public class UserJourneyRequest {
 
 
 
-//    public Long getUserId() {
-//        return userId;
-//    }
-//
-//    public void setUserId(Long userId) {
-//        this.userId = userId;
-//    }
-//
-//    public Long getJourneyId() {
-//        return journeyId;
-//    }
 //
 //    public void setJourneyId(Long journeyId) {
 //        this.journeyId = journeyId;

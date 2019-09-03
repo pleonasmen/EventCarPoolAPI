@@ -17,6 +17,9 @@ public class UserJourneyRequestController {
     JourneyRepository journeyRepository;
 
     @Autowired
+    JourneyPreviewRepository previewRepository;
+
+    @Autowired
     ParseJsonJohan parser;
 
 
@@ -31,6 +34,14 @@ public class UserJourneyRequestController {
         return repository.findById(id).get();
     }
 
+    @GetMapping("/userrequestid/{id}")
+    @CrossOrigin("http://localhost:3000")
+    public Journey getJourneyIdAndSendJourney(@PathVariable Long id){
+        UserJourneyRequest req = repository.findById(id).get();
+        return req.getJourney();
+
+    }
+
     @PostMapping(value="/createRequest", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @CrossOrigin(origins = "http://localhost:3000")
     public UserJourneyRequest createRequest(@RequestBody String journeyRequest) {
@@ -43,16 +54,23 @@ public class UserJourneyRequestController {
     public List<UserJourneyRequest> getUsers(@PathVariable Long id) {
         List<Journey> journeys = journeyRepository.findByDriverId(id);
         List<UserJourneyRequest> requests = new ArrayList<>();
-
         for(Journey journey : journeys) {
             for(UserJourneyRequest request : journey.getRequests()) {
-                if(request.getRequestStatus().equals("waiting")) {
                     requests.add(request);
-                }
             }
         }
         return requests;
     }
+
+    @PostMapping(value ="/userJourneyRequest",  consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @CrossOrigin(origins = "http://localhost:3000")
+    public UserJourneyRequest userRequestJourney(@RequestBody String request){
+        System.out.println(request);
+
+        return  repository.save(parser.parseJsonRequest(request));
+
+    }
+
 
 
 
