@@ -133,7 +133,7 @@ public class ParseJsonJohan {
         ArrayList<String> elementValues = parseAllElements(loginDetails);
 
         PublicUser user = publicUserRepository.findUserByUserName(elementValues.get(0));
-        
+
         System.out.println(user.getPassword() + " " + user.getUserName() + " " + elementValues.get(1));
 
         if (user.getPassword().equals(elementValues.get(1))) {
