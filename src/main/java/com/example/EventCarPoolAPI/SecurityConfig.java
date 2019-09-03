@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.net.InetAddress;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -40,9 +42,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
+//        System.out.println("hej");
+//        InetAddress address = InetAddress.getLocalHost();
+//        String ip = address.getHostAddress();
+//        System.out.println(ip);
+
+
         http
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
+            //    .antMatchers("/**").hasIpAddress(ip)
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

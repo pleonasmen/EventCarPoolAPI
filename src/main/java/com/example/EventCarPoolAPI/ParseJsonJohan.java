@@ -17,7 +17,10 @@ public class ParseJsonJohan {
     PostRepository postRepository;
     @Autowired
     LikeRepository likeRepository;
-
+    @Autowired
+    PublicUserRepository publicUserRepository;
+    @Autowired
+    UserJourneyRequestRepository requestRepository;
 
     public Journey parseJson(String journey)throws JSONException {
         ArrayList<String> elementValues = parseAllElements(journey);
@@ -114,23 +117,30 @@ public class ParseJsonJohan {
         return new User();
     }
 
-    public UserJourneyRequest parseJsonRequest(String request)throws JSONException {
+    public UserJourneyRequest parseJsonRequest(String request) throws JSONException {
         ArrayList<String> elementValues = parseAllElements(request);
+        UserJourneyRequest getRequest = requestRepository.findById(Long.valueOf(elementValues.get(0))).get();
+        if (!elementValues.get(13).equals("denied") && !elementValues.get(13).equals("accepted")) {
+            getRequest.setRequestStatus("denied");
+        } else {
+            getRequest.setRequestStatus(elementValues.get(13));
+        }
 
+        return getRequest;
+    }
 
-//        String referenceType = elementValues.get(2);
-//        Long giverId = Long.valueOf(elementValues.get(0));
-//        Long receiverId = Long.parseLong((elementValues.get(1)));
-//        User user = userRepository.findById(receiverId).get();
-//        String textField = (elementValues.get(6));
-//        LocalDate time = LocalDate.now();
-//        String giverRole = elementValues.get(4);
-//        String receiverRole = elementValues.get(5);
-//        return new UserGivesReferenceToUser(giverId,referenceType, time, giverRole, receiverRole, textField, user);
+    public PublicUser parseLogin(String loginDetails)throws JSONException {
+        ArrayList<String> elementValues = parseAllElements(loginDetails);
 
-        Long userId = Long.valueOf(elementValues.get(0));
-        Long journeyId = Long.valueOf(elementValues.get(1));
-        return new UserJourneyRequest(userRepository.findById(userId).get(), journeyRepository.findById(journeyId).get(), "waiting");
+        PublicUser user = publicUserRepository.findUserByUserName(elementValues.get(0));
+
+        System.out.println(user.getPassword() + " " + user.getUserName() + " " + elementValues.get(1));
+
+        if(user.getPassword().equals(elementValues.get(1))) {
+            return user;
+        } else {
+            return null;
+        }
     }
 
     public ArrayList<String> parseAllElements(String stringToParse)throws JSONException {
