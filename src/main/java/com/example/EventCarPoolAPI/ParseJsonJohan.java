@@ -133,17 +133,14 @@ public class ParseJsonJohan {
         ArrayList<String> elementValues = parseAllElements(loginDetails);
 
         PublicUser user = publicUserRepository.findUserByUserName(elementValues.get(0));
-
+        
         System.out.println(user.getPassword() + " " + user.getUserName() + " " + elementValues.get(1));
 
-        if(user.getPassword().equals(elementValues.get(1))) {
+        if (user.getPassword().equals(elementValues.get(1))) {
             return user;
         } else {
             return null;
         }
-        Long userId = Long.valueOf(elementValues.get(0));
-        Long journeyId = Long.valueOf(elementValues.get(1));
-        return new UserJourneyRequest(userRepository.findById(userId).get(), journeyRepository.findById(journeyId).get(), "waiting");
     }
 
     public ArrayList<String> parseAllElements(String stringToParse)throws JSONException {

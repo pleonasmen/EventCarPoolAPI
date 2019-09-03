@@ -2,6 +2,9 @@ package com.example.EventCarPoolAPI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +22,10 @@ public class UserController {
 
     @Autowired
     UserRepository repository;
+
+    @Autowired
+    PublicUserRepository publicUserRepository;
+
 
     @Autowired
     ParseJsonJohan parser;
@@ -31,25 +39,21 @@ public class UserController {
         @RequestMapping("/redirect")
         public RedirectView localRedirect(Principal principal) {
             RedirectView redirectView = new RedirectView();
-
-            redirectView.setUrl("http://localhost:3000/");
-
+            redirectView.setUrl("http://localhost:3000");
             return  redirectView;
         }
-
     }
 
-    @GetMapping("/login")
+    @PostMapping("/loginpage")
     @CrossOrigin(origins = "http://localhost:3000")
-    public User getUser(Principal principal) {
+    public PublicUser getLogin(@RequestBody String loginDetails) {
 
-        return repository.findUserByUserName(principal.getName());
+       return parser.parseLogin(loginDetails);
     }
-
 
     @GetMapping("/user")
     @CrossOrigin(origins = "http://localhost:3000")
-    public List<User> getUsers() {
+    public List<User> getUsers(Principal principal) {
         return (List<User>) repository.findAll();
     }
 
