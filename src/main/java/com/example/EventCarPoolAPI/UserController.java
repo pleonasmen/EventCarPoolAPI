@@ -2,8 +2,14 @@ package com.example.EventCarPoolAPI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +21,31 @@ public class UserController {
 
     @Autowired
     ParseJsonJohan parser;
+
+
+    @Controller
+    @RequestMapping("/")
+    public class RedirectController {
+
+
+        @RequestMapping("/redirect")
+        public RedirectView localRedirect(Principal principal) {
+            RedirectView redirectView = new RedirectView();
+
+            redirectView.setUrl("http://localhost:3000/");
+
+            return  redirectView;
+        }
+
+    }
+
+    @GetMapping("/login")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public User getUser(Principal principal) {
+
+        return repository.findUserByUserName(principal.getName());
+    }
+
 
     @GetMapping("/user")
     @CrossOrigin(origins = "http://localhost:3000")
