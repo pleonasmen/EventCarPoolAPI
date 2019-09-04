@@ -51,6 +51,11 @@ public class JourneyController {
 
     }
 
+    @GetMapping("/driverJourneys/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public List<Journey> getJourneysByDriverId(@PathVariable Long id) {
+        return (List<Journey>) repository.findByDriverId(id);
+    }
 
 
 }
