@@ -20,6 +20,7 @@ public class UserGivesReferenceToUserController {
     @PostMapping("/reference")
     @CrossOrigin(origins = "http://localhost:3000")
     public UserGivesReferenceToUser postReference(@RequestBody String reference) {
+        System.out.println(reference);
         return repository.save(parser.parseRefJson(reference));
     }
 }
