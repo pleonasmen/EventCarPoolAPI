@@ -91,24 +91,30 @@ public class UserController {
 
     @GetMapping("/user/rating/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
-    public Integer getUserRatingById(@PathVariable Long id) {
+    public Long getUserRatingById(@PathVariable Long id) {
 
-        Integer posCount = 0;
+        Double posCount = 0.0;
 
         User user = repository.findById(id).get();
         List<UserGivesReferenceToUser> references = user.getReferences();
 
-        for (UserGivesReferenceToUser reference : references) {
-            if (reference.getReferenceType().equals("Positive")) {
-                posCount++;
-                System.out.println("++++");
+        if(references.size() > 0) {
+            for (UserGivesReferenceToUser reference : references) {
+                System.out.println(reference.getReferenceType());
+                if (reference.getReferenceType().equals("Positive")) {
+                    posCount++;
+                    System.out.println("++++");
+                }
             }
+
+            Long rating = Math.round((posCount / references.size()) * 100);
+
+            return rating;
+
+        } else {
+            return -1L;
         }
-
-        Integer rating = Math.round(posCount/references.size())*100;
-
-        return rating;
-    }
+        }
 
 }
 
