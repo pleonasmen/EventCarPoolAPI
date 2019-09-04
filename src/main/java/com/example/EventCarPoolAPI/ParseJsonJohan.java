@@ -120,12 +120,15 @@ public class ParseJsonJohan {
     public UserJourneyRequest parseJsonRequest(String request) throws JSONException {
         ArrayList<String> elementValues = parseAllElements(request);
         UserJourneyRequest getRequest = requestRepository.findById(Long.valueOf(elementValues.get(0))).get();
-        if (!elementValues.get(13).equals("denied") && !elementValues.get(13).equals("accepted")) {
+
+        if(request.toLowerCase().indexOf("denied") != -1){
             getRequest.setRequestStatus("denied");
-        } else {
-            getRequest.setRequestStatus(elementValues.get(13));
+        }else{
+            getRequest.setRequestStatus("accepted");
         }
 
+
+        System.out.println(getRequest.getRequestStatus() + " request Status !!!!!!");
         return getRequest;
     }
 
