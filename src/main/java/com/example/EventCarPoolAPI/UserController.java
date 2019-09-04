@@ -66,9 +66,7 @@ public class UserController {
     @PostMapping(value="/user", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @CrossOrigin(origins = "http://localhost:3000")
     public User createUser(@RequestBody String user) {
-
         User user2 = parser.parseJsonUser(user);
-        System.out.println("hej");
         return repository.save(user2);
     }
 
@@ -89,6 +87,27 @@ public class UserController {
 
         User user2 = parser.parseJsonUser(friendInfo);
         return repository.save(user2);
+    }
+
+    @GetMapping("/user/rating/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public Integer getUserRatingById(@PathVariable Long id) {
+
+        Integer posCount = 0;
+
+        User user = repository.findById(id).get();
+        List<UserGivesReferenceToUser> references = user.getReferences();
+
+        for (UserGivesReferenceToUser reference : references) {
+            if (reference.getReferenceType().equals("Positive")) {
+                posCount++;
+                System.out.println("++++");
+            }
+        }
+
+        Integer rating = Math.round(posCount/references.size())*100;
+
+        return rating;
     }
 
 }

@@ -31,7 +31,6 @@ public class UserGivesReferenceToUser {
         this.userReceiving = userReceiving;
     }
 
-
     public Long getReferenceId() {
         return referenceId;
     }
