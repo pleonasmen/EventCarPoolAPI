@@ -52,7 +52,7 @@ public class UserController {
     public PublicUser getLogin( @RequestBody String loginDetails) {
        return parser.parseLogin(loginDetails);
     }
-    
+
     @GetMapping("/user")
     @CrossOrigin(origins = "http://localhost:3000")
     public List<User> getUsers(Principal principal) {
