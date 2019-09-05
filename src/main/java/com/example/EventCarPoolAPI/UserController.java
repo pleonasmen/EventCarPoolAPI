@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -30,14 +31,16 @@ public class UserController {
     @Autowired
     ParseJsonJohan parser;
 
+    @Autowired
+    HttpSession session;
+
 
     @Controller
     @RequestMapping("/")
     public class RedirectController {
 
-
         @RequestMapping("/redirect")
-        public RedirectView localRedirect(Principal principal) {
+        public RedirectView localRedirect() {
             RedirectView redirectView = new RedirectView();
             redirectView.setUrl("http://localhost:3000");
             return  redirectView;
@@ -46,11 +49,10 @@ public class UserController {
 
     @PostMapping("/loginpage")
     @CrossOrigin(origins = "http://localhost:3000")
-    public PublicUser getLogin(@RequestBody String loginDetails) {
-
+    public PublicUser getLogin( @RequestBody String loginDetails) {
        return parser.parseLogin(loginDetails);
     }
-
+    
     @GetMapping("/user")
     @CrossOrigin(origins = "http://localhost:3000")
     public List<User> getUsers(Principal principal) {

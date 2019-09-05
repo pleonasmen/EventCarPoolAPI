@@ -3,6 +3,8 @@ import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.ArrayList;
 @Service
@@ -136,8 +138,6 @@ public class ParseJsonJohan {
         ArrayList<String> elementValues = parseAllElements(loginDetails);
 
         PublicUser user = publicUserRepository.findUserByUserName(elementValues.get(0));
-
-        System.out.println(user.getPassword() + " " + user.getUserName() + " " + elementValues.get(1));
 
         if (user.getPassword().equals(elementValues.get(1))) {
             return user;
