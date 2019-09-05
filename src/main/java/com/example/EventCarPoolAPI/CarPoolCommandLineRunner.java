@@ -1,12 +1,9 @@
 package com.example.EventCarPoolAPI;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.EventCarPoolAPI.userhandling.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class CarPoolCommandLineRunner implements CommandLineRunner {
