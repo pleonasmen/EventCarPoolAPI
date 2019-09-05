@@ -129,9 +129,21 @@ public class ParseJsonJohan {
             getRequest.setRequestStatus("accepted");
         }
 
-
         System.out.println(getRequest.getRequestStatus() + " request Status !!!!!!");
         return getRequest;
+    }
+
+    public UserJourneyRequest parseJsonCreateRequest(String request) throws JSONException {
+        ArrayList<String> elementValues = parseAllElements(request);
+
+        Long userId = Long.valueOf(elementValues.get(0));
+        Long journeyId = Long.valueOf(elementValues.get(1));
+        String message = elementValues.get(2);
+
+        User user = userRepository.findById(userId).get();
+        Journey journey = journeyRepository.findById(journeyId).get();
+
+        return new UserJourneyRequest(user, journey, "waiting", message);
     }
 
     public PublicUser parseLogin(String loginDetails)throws JSONException {

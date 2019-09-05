@@ -45,7 +45,7 @@ public class UserJourneyRequestController {
     @PostMapping(value="/createRequest", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @CrossOrigin(origins = "http://localhost:3000")
     public UserJourneyRequest createRequest(@RequestBody String journeyRequest) {
-        return repository.save(parser.parseJsonRequest(journeyRequest));
+        return repository.save(parser.parseJsonCreateRequest(journeyRequest));
 
     }
 

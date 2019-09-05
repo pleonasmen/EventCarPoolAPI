@@ -23,14 +23,16 @@ public class UserJourneyRequest {
     @JoinColumn(name="journeyId")
     private Journey journey;
     private String requestStatus;
+    private String message;
 
 
     UserJourneyRequest() {}
 
-    UserJourneyRequest(User user, Journey journey, String requestStatus) {
+    UserJourneyRequest(User user, Journey journey, String requestStatus, String message) {
         this.user = user;
         this.journey = journey;
         this.requestStatus = requestStatus;
+        this.message = message;
     }
 
 
@@ -71,5 +73,13 @@ public class UserJourneyRequest {
 
     public void setJourney(Journey journey) {
         this.journey = journey;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
