@@ -20,6 +20,9 @@ public class CarPoolCommandLineRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 
+
+//        System.out.println(a);
+
 //        userRepository.save(user);
 //
 //        user = new SiteUser("Harry", encoder.encode("123"));

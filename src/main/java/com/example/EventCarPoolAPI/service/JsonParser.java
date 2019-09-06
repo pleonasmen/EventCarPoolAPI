@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
 @Service
 public class JsonParser {
     @Autowired
@@ -62,6 +63,9 @@ public class JsonParser {
         ArrayList<String> elementValues = parseAllElements(post);
         System.out.println(elementValues);
         // assigning values
+        //\u000d System.out.println("Hej");
+        //\u0020 System.out.println("BLA");
+
         Long userId = Long.valueOf(elementValues.get(0));
         String textField = elementValues.get(1);
         Long journeyId = Long.valueOf(elementValues.get(2));
@@ -73,19 +77,20 @@ public class JsonParser {
 
     public UserGivesReferenceToUser parseRefJson(String reference)throws JSONException {
         ArrayList<String> elementValues = parseAllElements(reference);
-        for (String s:elementValues
-        ) {
-            System.out.println(s);
-        }
-        String referenceType = elementValues.get(2);
+
+
         Long giverId = Long.valueOf(elementValues.get(0));
-        Long receiverId = Long.parseLong((elementValues.get(1)));
+        Long receiverId = Long.valueOf(elementValues.get(1));
         User user = userRepository.findById(receiverId).get();
-        String textField = (elementValues.get(6));
-        LocalDate time = LocalDate.now();
-        String giverRole = elementValues.get(4);
-        String receiverRole = elementValues.get(5);
-        return new UserGivesReferenceToUser(giverId,referenceType, time, giverRole, receiverRole, textField, user);
+
+        String referenceType = elementValues.get(2);
+
+
+        String giverRole = elementValues.get(3);
+        String receiverRole = elementValues.get(4);
+        String textField = elementValues.get(5);
+
+        return new UserGivesReferenceToUser(giverId, user, referenceType, giverRole, receiverRole, textField);
     }
 
 

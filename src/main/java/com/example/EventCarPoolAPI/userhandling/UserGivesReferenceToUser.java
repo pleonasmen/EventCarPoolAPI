@@ -20,12 +20,15 @@ public class UserGivesReferenceToUser {
     private String giverRole;
     private String receiverRole;
     private String textField;
+
     public UserGivesReferenceToUser() {
     }
-    public UserGivesReferenceToUser(Long giverId, String referenceType, LocalDate time, String giverRole, String receiverRole, String textField, User userReceiving) {
+
+    public UserGivesReferenceToUser(Long giverId, User userReceiving, String referenceType, String giverRole, String receiverRole, String textField) {
         this.giverId = giverId;
+        this.userReceiving = userReceiving;
         this.referenceType = referenceType;
-        this.time = time;
+        setTime();
         this.giverRole = giverRole;
         this.receiverRole = receiverRole;
         this.textField = textField;
@@ -59,8 +62,8 @@ public class UserGivesReferenceToUser {
     public LocalDate getTime() {
         return time;
     }
-    public void setTime(LocalDate time) {
-        this.time = time;
+    public void setTime() {
+        this.time = LocalDate.now();
     }
     public String getGiverRole() {
         return giverRole;

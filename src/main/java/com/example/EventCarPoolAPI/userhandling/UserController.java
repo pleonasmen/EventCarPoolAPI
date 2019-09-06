@@ -40,6 +40,18 @@ public class UserController {
         }
     }
 
+
+    // DTO --> 1) repo sen mappning mot entity mot DTO och DTOns MApper, Lombok (lib) instalelra lokalt, kan autogenerera setters & getters... MapStruct om man inte orkar skriva mappning själv
+    // gör .map() => gör någon transformation.
+    // Optional.of(objIsNotNull).map(t -> t.size()).orElseThrow(new IllegalArgument("...."));
+    // Optional.ofNullable(objMightBeNull)
+    // .map(obj -> obj.getProp())
+    // .filter(p -> p is istance UpperClass)
+    // .map(p -> (UpperClass) p)
+
+    // mappar mot dto tillbaka från dto --> entity  KLASS ENtity KLassDTO @Component
+
+
     @PostMapping("/loginpage")
     @CrossOrigin(origins = "http://localhost:3000")
     public PublicUser getLogin( @RequestBody String loginDetails) {
@@ -56,6 +68,9 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:3000")
     public User getUserById(@PathVariable Long id) {
         return repository.findById(id).get();
+//        return repository.findById(id)
+//                //.map(t -> t)
+//                .orElse(null);
     }
 
     @PostMapping(value="/user", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
